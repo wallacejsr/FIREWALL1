@@ -1,0 +1,3 @@
+pfctl -t abusive_hosts -T show
+pfctl -t abusive_hosts -T flush
+pfctl -f /FIREWALL/pf.conf

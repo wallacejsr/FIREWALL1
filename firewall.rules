@@ -1,0 +1,50 @@
+IPF="ipfw -q add"
+ipfw -q -f flush
+
+#loopback
+$IPF 10 allow all from any to any via lo0
+$IPF 20 deny all from any to 127.0.0.0/8
+$IPF 30 deny all from 127.0.0.0/8 to any
+$IPF 40 deny tcp from any to any frag
+
+# statefull
+$IPF 50 check-state
+$IPF 60 allow tcp from any to any established
+$IPF 70 allow all from any to any out keep-state
+$IPF 80 allow icmp from any to any
+
+# open port ftp (20,21), ssh (22), mail (25)
+# http (80), dns (53) etc
+#$IPF 90 allow tcp from any to any 21 in
+#$IPF 100 allow tcp from any to any 21 out
+$IPF 150 allow udp from any to any 80 in
+$IPF 160 allow tcp from any to any 80 out
+$IPF 176 allow all from 191.101.131.73 to me
+
+# metin2 ch1 ports
+$IPF 180 allow tcp from any to any 11002 in
+$IPF 190 allow tcp from any to any 11002 out
+$IPF 200 allow udp from any to any 11002 in
+$IPF 210 allow udp from any to any 11002 out
+
+$IPF 220 allow tcp from any to any 13001 in
+$IPF 230 allow tcp from any to any 13001 out
+$IPF 280 allow tcp from any to any 13002 in
+$IPF 250 allow tcp from any to any 13002 out
+$IPF 260 allow tcp from any to any 13003 in
+$IPF 270 allow tcp from any to any 13003 out
+$IPF 280 allow tcp from any to any 13004 in
+$IPF 290 allow tcp from any to any 13004 out
+$IPF 291 allow tcp from any to any 13099 in
+$IPF 292 allow tcp from any to any 13099 out
+
+$IPF 300 allow udp from any to any 13001 in
+$IPF 310 allow udp from any to any 13001 out
+$IPF 320 allow udp from any to any 13002 in
+$IPF 330 allow udp from any to any 13002 out
+$IPF 340 allow udp from any to any 13003 in
+$IPF 350 allow udp from any to any 13003 out
+$IPF 360 allow udp from any to any 13004 in
+$IPF 370 allow udp from any to any 13004 out
+$IPF 371 allow udp from any to any 13099 in
+$IPF 372 allow udp from any to any 13099 out
